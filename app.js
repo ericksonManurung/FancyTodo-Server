@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const router = require('./routes')
+const router = require('./routers')
 
 // body parser
 // json
@@ -10,4 +10,6 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(router)
 
-app.listen(port, ()=>{ console.log(`your server listen on port: ${port}`)})
+app.listen(port, ()=>{
+    console.log(`your server run at http://localhost:${port}`)
+})
