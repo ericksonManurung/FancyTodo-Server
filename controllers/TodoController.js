@@ -1,4 +1,4 @@
-const  {Todo} = require('../models')
+const {Todo} = require('../models')
 
 class TodoController{
     
@@ -49,9 +49,19 @@ class TodoController{
             status: req.body.status,
             due_date: req.body.due_date
         }
-        Todo.update(todo,{where:{id:id}})
+        Todo.update(todo,{
+            where:{
+                id:id
+            },
+            returning:true
+        })
         .then((data) => {
-            res.status(200).json(data)
+            console.log(data[1])
+            if(data[1].length){
+                res.status(200).json({data:data[1][0]})
+            }else{
+                res.status(200).json({message:"Data Not Found"})
+            }
         }).catch((err) => {
             res.status(500).json({message:'Internal Server Error'})
         });
@@ -72,8 +82,21 @@ class TodoController{
 
     static deleteTodo(req,res){
         const {id} = req.params
-        Todo.destroy({where:{id:id}})
+        Todo.findByPk(id)
         .then((data) => {
+            if(data){
+                return Todo.destroy({
+                    where:{
+                        id:id
+                    },
+                    returning:true
+                })        
+            }else{
+                res.status(404).json({message: "Data Not Found"})
+            }
+        })
+        .then((data) => {
+            console.log(data)
             res.status(200).json(data)
         }).catch((err) => {
             res.status(500).json({message:'Internal Server Error'})
