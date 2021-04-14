@@ -15,6 +15,7 @@ PUT/todos/:id
 PATCH/todos/:id
 DELETE/todos/:id
 
+
 ## Add Todo
 Menambahkan data Todo
 * URL
@@ -46,11 +47,12 @@ None
 * Error Response:
     Code : 400
     Content:
-    { error : "SequelizeValidationError" }
+    { message : "Sequelize Validation Error" }
     OR
     Code: 500
     Content:
     { message: "Internal Server Error"}
+
 
 
 ## List Todos
@@ -92,6 +94,7 @@ None
     {message: "Internas Server Error"}
 
 
+
 ## Detail Todo
 Menampilkan satu data todo sesuai paramter
 * URL
@@ -114,6 +117,10 @@ None
         "updatedAt": "2021-04-13T14:04:12.464Z",
         "createdAt": "2021-04-13T14:04:12.464Z"
     }
+    - OR
+    Code: 404
+    Content:
+    {message:'Error not found'}
 * Error Response:
     Code: 500
     Content
@@ -151,18 +158,18 @@ id
             "updatedAt": "2021-04-13T15:31:37.907Z"
         }
     }
+    - OR
+    Code: 404
+    Content:
+    {message:'Error not found'}
 * Error Response:
     Code : 400
     Content:
-    { error : "SequelizeValidationError" }
-    OR
-    Code: 404
-    Content:
-    { message : "Data Not Found" }
-    OR
+    {message : "Sequelize Validation Error" }
+    - OR
     Code: 500
     Content:
-    {message: "Internas Server Error"}
+    {message: "Internal Server Error"}
 
 
 
@@ -177,7 +184,7 @@ id
 * Data Params
     Required:
     {
-        title: req.body.status
+        statu: req.body.status
     }
 * Success Response:
     Code: 200
@@ -191,18 +198,18 @@ id
         "updatedAt": "2021-04-13T14:04:12.464Z",
         "createdAt": "2021-04-13T14:04:12.464Z"
     }
+    - OR
+    Code: 404
+    Content:
+    {message:'Error not found'}
 * Error Response:
     Code: 400
     Content
-    { error : "SequelizeValidationError" }
-    - OR
-    Code: 404
-    Content
-    {message: "Data Not Found"}
+    { error : "Sequelize Validation Error" }
     - OR
     Code: 500
     Content
-    {message: "Internas Server Error"}
+    {message: "Internal Server Error"}
 
 
 
@@ -229,12 +236,13 @@ None
         "createdAt": "2021-04-13T14:04:12.464Z"
     }
     OR
+    Content:
     {message:"Todo Success Delete"}
-* Error Response:
+    - OR
     Code: 404
     Content
     {message: "Data Not Found"}
-    - OR
+* Error Response:
     Code: 500
     Content
-    {message: "Internas Server Error"}
+    {message: "Internal Server Error"}
