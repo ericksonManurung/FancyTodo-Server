@@ -22,7 +22,7 @@ class TodoController{
     }
     
     static listTodo(req,res){
-        Todo.findAll()
+        Todo.findAll({order:[['id','ASC']]})
         .then((data) => {
             res.status(200).json(data)
         }).catch((err) => {

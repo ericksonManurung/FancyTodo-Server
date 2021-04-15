@@ -14,6 +14,7 @@ GET/todos/:id
 PUT/todos/:id
 PATCH/todos/:id
 DELETE/todos/:id
+POST/users/regis
 
 
 ## Add Todo
@@ -246,3 +247,37 @@ None
     Code: 500
     Content
     {message: "Internal Server Error"}
+
+
+## Register Users
+Menambahkan data Todo
+* URL
+/users/regis
+* Method:
+POST
+* URL Params
+None
+* Data Params
+    Required:
+    {
+        email: req.body.email,
+        password: req.body.password
+    }
+* Success Response:
+    Code: 201
+    Content:
+    {
+        "id": 4,
+        "email": "<user email>",
+        "password": "<user password>",
+        "updatedAt": "2021-04-15T05:04:35.865Z",
+        "createdAt": "2021-04-15T05:04:35.865Z"
+    }
+* Error Response:
+    Code : 400
+    Content:
+    { message : "Sequelize Validation Error" }
+    OR
+    Code: 500
+    Content:
+    { message: "Internal Server Error"}

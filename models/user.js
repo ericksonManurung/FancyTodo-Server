@@ -17,29 +17,26 @@ module.exports = (sequelize, DataTypes) => {
     email: {
       type: DataTypes.STRING,
       validate:{
-        isEmpty(val){
-          if(!val){
-            throw new Error('Email tidak boleh kosong')
-          }
+        notEmpty:{
+          args: true,
+          msg: 'Email tidak boleh kosong'
         },
         isEmail: {
           args: true,
-          msg:'Format harus email. ex: abc@gmail.com'
+          msg:'Format harus email. example: abc@gmail.com'
         }
       }
     },
     password: {
       type: DataTypes.STRING,
       validate:{
-        isEmpty(val){
-          if(!val){
-            throw new Error('Password tidak boleh kosong')
-          }
-        },
-        valLength(val){
-          if(val.length < 6){
-            throw new Error('Password minimal 6 karakter')
-          }
+        notEmpty:{
+          args: true,
+          msg: 'Password tidak boleh kosong'
+        },  
+        len:{
+          args: [6,10],
+          msg: 'Password minimal 6 karakter'
         }
       }
     }

@@ -17,45 +17,40 @@ module.exports = (sequelize, DataTypes) => {
     title: {
       type: DataTypes.STRING,
       validate:{
-        isEmpty(val){
-          if(!val){
-            throw new Error('Title tidak boleh kosong')
-          }
+        notEmpty:{
+          args: true,
+          msg: 'Title tidak boleh kosong'
         },
-        valLength(val){
-          if(val.length < 3){
-            throw new Error('Title minimal 3 karakter')
-          }
+        len:{
+          args: 3,
+          msg: 'Title Minimal 3 karater'
         }
       }
     },
     description: {
       type: DataTypes.STRING,
       validate:{
-        isEmpty(val){
-          if(!val){
-            throw new Error('description tidak boleh kosong')
-          }
+        notEmpty:{
+          args: true,
+          msg: 'Description tidak boleh kosong'
         }
       }
     },
     status: {
       type: DataTypes.STRING,
       validate:{
-        isEmpty(val){
-          if(!val){
-            throw new Error('Status tidak boleh kosong')
-          }
+        notEmpty:{
+          args: true,
+          msg: 'Status tidak boleh kosong'
         }
       }
     },
     due_date: {
       type: DataTypes.DATE,
       validate: {
-        isEmpty(val){
-          if(!val){
-            throw new Error('due_date tidak boleh kosong')
-          }
+        notEmpty:{
+          args: true,
+          msg: 'due_date tidak boleh kosong'
         },
         isBackDate(val){
           let valDay = val.getDate()
@@ -68,7 +63,7 @@ module.exports = (sequelize, DataTypes) => {
           let year = date.getFullYear()
 
           if(valYear !== year || valMonth !== month || valDay < day) {
-            throw new Error('Date tidak bisa backdate')
+            throw new Error('Tidak bisa input tanggal kemarin')
           }
         }
       }

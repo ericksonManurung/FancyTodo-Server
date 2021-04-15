@@ -6,14 +6,7 @@ class UserController{
             email: req.body.email,
             password: req.body.password
         }
-        User.findAll({where:{email:user.email}})
-        .then((data) => {
-            if(data.length === 0 || data.length < 1 || data === undefined){
-                return User.create(user)
-            }else{
-                res.send('Data sudah ada silahkan daftar dengan email yg lain')
-            }
-        })
+        User.create(user)
         .then((data) => {
             res.status(201).json(data)
         })
@@ -27,12 +20,17 @@ class UserController{
         });
     }
 
-    static listUser(req,res){
+    static loginUser(req,res){
+        let user = {
+            email: req.body.email,
+            password: req.body.password
+        }
         User.findAll()
         .then((data) => {
-            res.status(200).json(data)
-        }).catch((err) => {
-            res.status(500).json({message:'Internal Server Error'})
+           res.status(200).json(data)
+        })
+        .catch((err) => {
+            res.status(500).json({message : 'Internal Server Error'})
         });
     }
 }
