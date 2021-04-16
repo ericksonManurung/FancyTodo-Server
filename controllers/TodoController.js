@@ -7,7 +7,8 @@ class TodoController{
             title: req.body.title,
             description: req.body.description,
             status: req.body.status,
-            due_date: req.body.due_date
+            due_date: req.body.due_date,
+            UserId: req.userId //req.userId dibuat dari req di middleware authentication
         }
         Todo.create(todo)
         .then((data) => {
@@ -22,7 +23,7 @@ class TodoController{
     }
     
     static listTodo(req,res){
-        Todo.findAll({order:[['id','ASC']]})
+        Todo.findAll({where:{UserId:req.userId}},{order:[['id','ASC']]})
         .then((data) => {
             res.status(200).json(data)
         }).catch((err) => {
@@ -32,16 +33,18 @@ class TodoController{
 
     static detailTodo(req,res){
         const {id} = req.params
-        Todo.findByPk(id)
-        .then((data) => {
-            if(data){
-                res.status(200).json(data)
-            }else{
-                res.status(404).json({message:'Error not found'})
-            }
-        }).catch((err) => {
-            res.status(500).json({message:'Internal Server Error'})
-        });
+        console.log(req.todo,'->>>>>>>>>>>>> HOKEEH')
+        res.status(200).json({success: true, data: req.todo})
+        // Todo.findByPk(id)
+        // .then((data) => {
+        //     if(data){
+        //         res.status(200).json(data)
+        //     }else{
+        //         res.status(404).json({message:'Error not found'})
+        //     }
+        // }).catch((err) => {
+        //     res.status(500).json({message:'Internal Server Error'})
+        // });
     }
 
     static updateTodo(req,res){
@@ -61,7 +64,7 @@ class TodoController{
         .then((data) => {
             if(data[1].length){
                 res.status(200).json({data:data[1][0]})
-            }else{
+            }else{ 
                 res.status(404).json({message:'Error not found'})
             }
         }).catch((err) => {

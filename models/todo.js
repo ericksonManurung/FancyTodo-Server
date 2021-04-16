@@ -67,6 +67,15 @@ module.exports = (sequelize, DataTypes) => {
           }
         }
       }
+    },
+    UserId: {
+      type: DataTypes.STRING,
+      validate:{
+        notEmpty:{
+          args: true,
+          msg: 'Status tidak boleh kosong'
+        }
+      }
     }
   }, {
     sequelize,

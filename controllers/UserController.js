@@ -1,14 +1,16 @@
 const {User} = require('../models')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
 
 class UserController{
-    static registerUser(req,res){
+    static register(req,res){
         let user = {
             email: req.body.email,
             password: req.body.password
         }
         User.create(user)
         .then((data) => {
-            res.status(201).json(data)
+            res.status(201).json({success:true, message:'User berhasil di register'})
         })
         .catch((err) => {
             console.log(err.message)
@@ -20,16 +22,22 @@ class UserController{
         });
     }
 
-    static loginUser(req,res){
+    static login(req,res){
         let user = {
             email: req.body.email,
             password: req.body.password
         }
-        User.findAll()
+        User.findOne({where:{email:user.email}})
         .then((data) => {
-           res.status(200).json(data)
+            if(data && bcrypt.compareSync(user.password, data.password)){
+                const access_token = jwt.sign({id: data.id, email: data.email}, process.env.JWT_SECREAT)
+                res.status(200).json({success: true, access_token})
+            }else{
+                res.status(404).json({message:'email dan password not found'})
+            }
         })
         .catch((err) => {
+            console.log(err.message)
             res.status(500).json({message : 'Internal Server Error'})
         });
     }
