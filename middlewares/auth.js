@@ -2,8 +2,9 @@ const jwt = require('jsonwebtoken')
 const {Todo} = require('../models')
 
 const authentication = (req,res,next)=>{
+    // jika token tidak ada
     if(!req.headers.access_token){
-        return res.status(401).json({success: false, message: 'akses token tidak di temukan'})
+        throw{name: 'TOKEN_UNDEFINED'}
     }else{
         // cek token benar atau tidak
         try{
@@ -11,8 +12,9 @@ const authentication = (req,res,next)=>{
             // define userId untuk di controller
             req.userId = decode.id
             next()
+        // bila tidak sesuai 
         }catch(err){
-            res.status(401).json({success:'false', message:'Token tidak sesuai'})
+            throw{name:err.message} //tanya instruktur
         }
     }
 }
@@ -22,13 +24,13 @@ const todosAuthorization = (req,res,next) =>{
     Todo.findOne({where:{id, UserId:req.userId}})
     .then((data) => {
         if(!data){
-            return res.status(404).json({success:false, message:'Todo not found!'})
+            throw{name: 'NOT_FOUND'}
         }else{
-            req.todo = data
+            req.todo = data //untuk detail dan delete
             next()
         }
     }).catch((err) => {
-        
+        next(err)
     });
 
 }

@@ -15,6 +15,7 @@ PUT/todos/:id
 PATCH/todos/:id
 DELETE/todos/:id
 POST/users/regis
+POST/users/login
 
 
 ## Add Todo
@@ -37,22 +38,36 @@ None
     Code: 201
     Content:
     {
-        "id": 1,
-        "title": "<todo title>",
-        "description": "<todo description>",
-        "status": "<todo status>",
-        "due_date": "<todo due_date>",
-        "updatedAt": "2021-04-13T14:04:12.464Z",
-        "createdAt": "2021-04-13T14:04:12.464Z"
+        "success": true,
+        "data": {
+            "id": 1,
+            "title": "<todo title>",
+            "description": "<todo description>",
+            "status": "<todo status>",
+            "due_date": "<todo due_date>",
+            "UserId": <todo UserId>,
+            "updatedAt": "2021-04-17T10:31:57.095Z",
+            "createdAt": "2021-04-17T10:31:57.095Z"
+        }
     }
 * Error Response:
     Code : 400
     Content:
-    { message : "Sequelize Validation Error" }
+    {
+        "success": false,
+        "errorMessage": [
+            "Validation error: Title tidak boleh kosong,",
+            "Validation error: Title Minimal 3 karater,",
+            "Validation error: Description tidak boleh kosong"
+        ]
+    }
     OR
     Code: 500
     Content:
-    { message: "Internal Server Error"}
+    {
+        "success": false,
+        "errorMessage": "Internal Server Error"
+    }
 
 
 
@@ -69,30 +84,38 @@ None
 * Success Response:
     Code: 200
     Content:
-    [
-        {
-        "id": 1,
-        "title": "<todo title>",
-        "description": "<todo description>",
-        "status": "<todo status>",
-        "due_date": "<todo due_date>",
-        "updatedAt": "2021-04-13T14:04:12.464Z",
-        "createdAt": "2021-04-13T14:04:12.464Z"
-        },
-        {
-        "id": 2,
-        "title": "<todo title>",
-        "description": "<todo description>",
-        "status": "<todo status>",
-        "due_date": "<todo due_date>",
-        "updatedAt": "2021-04-13T14:04:12.464Z",
-        "createdAt": "2021-04-13T14:04:12.464Z"
-        },
-    ]
+    {
+        "success": true,
+        "data": [   
+            {
+               "id": 1,
+                "title": "<todo title>",
+                "description": "<todo description>",
+                "status": "<todo status>",
+                "due_date": "<todo due_date>",
+                "UserId": <todo UserId>,
+                "createdAt": "2021-04-17T10:10:34.365Z",
+                "updatedAt": "2021-04-17T10:10:34.365Z"
+            },
+            {
+                "id": 2,
+                "title": "<todo title>",
+                "description": "<todo description>",
+                "status": "<todo status>",
+                "due_date": "<todo due_date>",
+                "UserId": <todo UserId>,
+                "createdAt": "2021-04-17T10:10:34.365Z",
+                "updatedAt": "2021-04-17T10:10:34.365Z"
+            },
+        ]
+    }
 * Error Response:
     Code: 500
     Content
-    {message: "Internas Server Error"}
+    {
+        "success": false,
+        "errorMessage": "Internal Server Error"
+    }
 
 
 
@@ -110,22 +133,32 @@ None
     Code: 200
     Content:
     {
-        "id": 2,
-        "title": "<todo title>",
-        "description": "<todo description>",
-        "status": "<todo status>",
-        "due_date": "<todo due_date>",
-        "updatedAt": "2021-04-13T14:04:12.464Z",
-        "createdAt": "2021-04-13T14:04:12.464Z"
+        "success": true,
+        "data": {
+            "id": 1,
+            "title": "<todo title>",
+            "description": "<todo description>",
+            "status": "<todo status>",
+            "due_date": "<todo due_date>",
+            "UserId": <todo UserId>,
+            "updatedAt": "2021-04-17T10:31:57.095Z",
+            "createdAt": "2021-04-17T10:31:57.095Z"
+        }
     }
     - OR
     Code: 404
     Content:
-    {message:'Error not found'}
+    {
+        "success": false,
+        "errorMessage": "Data tidak ditemukan"
+    }
 * Error Response:
     Code: 500
     Content
-    {message: "Internal Server Error"}
+    {
+        "success": false,
+        "errorMessage": "Internal Server Error"
+    }
 
 
 
@@ -149,6 +182,7 @@ id
     Code: 200
     Content:
     {
+        "success": true,
         "data": {
             "id": 3,
             "title": "<todo title>",
@@ -162,15 +196,27 @@ id
     - OR
     Code: 404
     Content:
-    {message:'Error not found'}
+    {
+        "success": false,
+        "errorMessage": "Data tidak ditemukan"
+    }
 * Error Response:
     Code : 400
     Content:
-    {message : "Sequelize Validation Error" }
+    {
+        "success": false,
+        "errorMessage": [
+            "Validation error: Tidak bisa input tanggal kemarin,",
+            "Validation error: Status tidak boleh kosong"
+        ]
+    }
     - OR
     Code: 500
     Content:
-    {message: "Internal Server Error"}
+    {
+        "success": false,
+        "errorMessage": "Internal Server Error"
+    }
 
 
 
@@ -191,26 +237,41 @@ id
     Code: 200
     Content:
     {
-        "id": 1,
-        "title": "<todo title>",
-        "description": "<todo description>",
-        "status": "<todo status>",
-        "due_date": "<todo due_date>",
-        "updatedAt": "2021-04-13T14:04:12.464Z",
-        "createdAt": "2021-04-13T14:04:12.464Z"
-    }
+        "success": true,
+        "data": {
+            "id": 3,
+            "title": "<todo title>",
+            "description": "<todo description>",
+            "status": "<todo status>",
+            "due_date": "<todo due_date>",
+            "createdAt": "2021-04-13T14:04:12.464Z",
+            "updatedAt": "2021-04-13T15:31:37.907Z"
+        }
+    }   
     - OR
     Code: 404
     Content:
-    {message:'Error not found'}
+    {
+        "success": false,
+        "errorMessage": "Data tidak ditemukan"
+    }
 * Error Response:
     Code: 400
     Content
-    { error : "Sequelize Validation Error" }
+    {
+        "success": false,
+        "errorMessage": [
+            "Validation error: Tidak bisa input tanggal kemarin,",
+            "Validation error: Status tidak boleh kosong"
+        ]
+    }
     - OR
     Code: 500
     Content
-    {message: "Internal Server Error"}
+    {
+        "success": false,
+        "errorMessage": "Internal Server Error"
+    }
 
 
 
@@ -228,25 +289,35 @@ None
     Code: 200
     Content:
     {
-        "id": 1,
-        "title": "<todo title>",
-        "description": "<todo description>",
-        "status": "<todo status>",
-        "due_date": "<todo due_date>",
-        "updatedAt": "2021-04-13T14:04:12.464Z",
-        "createdAt": "2021-04-13T14:04:12.464Z"
-    }
+        "success": true,
+        "data": {
+            "id": 3,
+            "title": "<todo title>",
+            "description": "<todo description>",
+            "status": "<todo status>",
+            "due_date": "<todo due_date>",
+            "createdAt": "2021-04-13T14:04:12.464Z",
+            "updatedAt": "2021-04-13T15:31:37.907Z"
+        }
+    }   
     OR
     Content:
     {message:"Todo Success Delete"}
     - OR
     Code: 404
     Content
-    {message: "Data Not Found"}
+    {
+        "success": false,
+        "errorMessage": "Data tidak ditemukan"
+    }
 * Error Response:
     Code: 500
     Content
-    {message: "Internal Server Error"}
+    {
+        "success": false,
+        "errorMessage": "Internal Server Error"
+    }
+
 
 
 ## Register Users
@@ -264,20 +335,67 @@ None
         password: req.body.password
     }
 * Success Response:
-    Code: 201
+    Code: 200
     Content:
     {
-        "id": 4,
-        "email": "<user email>",
-        "password": "<user password>",
-        "updatedAt": "2021-04-15T05:04:35.865Z",
-        "createdAt": "2021-04-15T05:04:35.865Z"
+        "success": true,
+        "message": "User berhasil register"
     }
 * Error Response:
     Code : 400
     Content:
-    { message : "Sequelize Validation Error" }
+    {
+        "success": false,
+        "errorMessage": [
+            "Validation error: Email tidak boleh kosong,",
+            "Validation error: Format harus email. example: abc@gmail.com,"
+        ]
+    }
     OR
     Code: 500
     Content:
-    { message: "Internal Server Error"}
+    {
+        "success": false,
+        "errorMessage": "Internal Server Error"
+    }
+
+
+
+## Login Users
+Menambahkan data Todo
+* URL
+/users/login
+* Method:
+POST
+* URL Params
+None
+* Data Params
+    Required:
+    {
+        email: req.body.email,
+        password: req.body.password
+    }
+* Success Response:
+    Code: 200
+    Content:
+    {
+        "success": true,
+        "message": "User berhasil login"
+    }
+* Error Response:
+    Code : 400
+    Content:
+    {
+        "success": false,
+        "errorMessage": [
+            "Validation error: Email tidak boleh kosong,",
+            "Validation error: Format harus email. example: abc@gmail.com,"
+        ]
+    }
+    OR
+    Code: 500
+    Content:
+    {
+        "success": false,
+        "errorMessage": "Internal Server Error"
+    }

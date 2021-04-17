@@ -4,10 +4,10 @@ const {todosAuthorization} = require('../middlewares/auth')
 
 router.post('/', TodoController.addTodo)
 router.get('/', TodoController.listTodo)
-router.get('/:id',todosAuthorization, TodoController.detailTodo)
-router.put('/:id', TodoController.updateTodo)
-router.patch('/:id', TodoController.updateTodoStatus)
-router.delete('/:id', TodoController.deleteTodo)
+router.get('/:id', todosAuthorization, TodoController.detailTodo)
+router.put('/:id', todosAuthorization, TodoController.updateTodo)
+router.patch('/:id', todosAuthorization, TodoController.updateTodoStatus)
+router.delete('/:id', todosAuthorization, TodoController.deleteTodo)
 
 
 module.exports = router
