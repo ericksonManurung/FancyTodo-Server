@@ -1,40 +1,55 @@
 const errorHandler = (err ,req ,res ,next) =>{
     let statusCode
-    let errorMessage
+    let errorMessage = []
 
     console.log('message = ',err.message)
     console.log('name = ',err.name)
-    
-    if(err.name === 'SequelizeValidationError'){
-        statusCode = 400
-        if(err.message){
-            errorMessage = err.message.split('\n')
-        }else{
-            errorMessage = 'Bad request'
-        }
 
-    }else if(err.name === 'LOGIN_ERROR'){
-        statusCode = 401
-        errorMessage = 'Username dan Password salah'
-
-    }else if(err.name === 'invalid token'){
-        statusCode = 401
-        errorMessage = 'Token tidak sesuai / salah'
-
-    }else if(err.name === 'TOKEN_UNDEFINED'){
-        statusCode = 404
-        errorMessage = 'Akses Token tidak di temukan'
-
-    }else if(err.name === 'NOT_FOUND'){
-        statusCode = 404
-        errorMessage = 'Data tidak ditemukan'
-        
-    }else{
-        statusCode = 500
-        errorMessage = 'Internal Server Error'
+    switch (err.name) {
+        case 'SequelizeValidationError':
+            statusCode = 400
+            if(err.message){
+                errorMessage = err.message.split('\n')
+            }else{
+                errorMessage.push('Bad request')
+            }
+            break;
+        case 'SequelizeUniqueConstraintError':
+            statusCode = 409
+            errorMessage.push('Data duplicate')
+            break;
+        case 'SequelizeForeignKeyConstraintError':
+            statusCode = 400
+            errorMessage.push('Foreign key kosong')
+            break;
+        case 'LOGIN_VALIDATION':
+            statusCode = 400
+            errorMessage.push('Username atau Password tidak boleh kosong')
+            break;
+        case 'LOGIN_ERROR':
+            statusCode = 401
+            errorMessage.push('Username atau Password anda salah')
+            break;
+        case 'LOGIN_FAIL':
+            statusCode = 401
+            errorMessage.push('access token dan Database tidak sesuai')
+            break;            
+        case 'MISSING_TOKEN':
+            statusCode = 401
+            errorMessage.push('Akses token tidak ditemukan')
+            break;
+        case 'INVALID_TOKEN':
+            statusCode = 401
+            errorMessage.push('Token tidak sesuai atau salah')
+            break;
+        case 'NOT_FOUND':
+            statusCode = 401
+            errorMessage.push('Data tidak ditemukan')
+            break;    
+        default:
+            statusCode = 500
+            errorMessage.push('Internal Server Error')
     }
-    // SequelizeForeignKeyConstraintError
-
     res.status(statusCode).json({success:false, errorMessage})
 }
 

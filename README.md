@@ -24,6 +24,8 @@ Menambahkan data Todo
 /todos
 * Method:
 POST
+* Request Headers
+access_token : <access token>
 * URL Params
 None
 * Data Params
@@ -77,6 +79,8 @@ Menampilkan Semua data Todos
 /todos
 * Method:
 GET
+* Request Headers
+access_token : <access token>
 * URL Params
 None
 * Data Params
@@ -125,6 +129,8 @@ Menampilkan satu data todo sesuai paramter
 /todos/:id
 * Method:
 GET
+* Request Headers
+access_token : <access token>
 * URL Params
 id
 * Data Params
@@ -168,6 +174,8 @@ Mengupdate semua field pada data Todo
 /todos/:id
 * Method:
 PUT
+* Request Headers
+access_token : <access token>
 * URL Params
 id
 * Data Params
@@ -226,6 +234,8 @@ Mengupdate field status pada data Todos
 /todos/:id
 * Method:
 PATCH
+* Request Headers
+access_token : <access token>
 * URL Params
 id
 * Data Params
@@ -280,7 +290,9 @@ Menghapus data Todo
 * URL
 /todos/:id
 * Method:
-PATCH
+DELETE
+* Request Headers
+access_token : <access token>
 * URL Params
 id
 * Data Params
@@ -335,7 +347,7 @@ None
         password: req.body.password
     }
 * Success Response:
-    Code: 200
+    Code: 201
     Content:
     {
         "success": true,
@@ -380,7 +392,7 @@ None
     Content:
     {
         "success": true,
-        "message": "User berhasil login"
+        "access_token": "<access token>"
     }
 * Error Response:
     Code : 400

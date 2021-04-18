@@ -22,18 +22,24 @@ class UserController{
             email: req.body.email,
             password: req.body.password
         }
-        User.findOne({where:{email:user.email}})
-        .then((data) => {
-            if(data && bcrypt.compareSync(user.password, data.password)){
-                const access_token = jwt.sign({id: data.id, email: data.email}, process.env.JWT_SECREAT)
-                res.status(200).json({success: true, access_token})
-            }else{
-                throw{name: 'LOGIN_ERROR'}
-            }
-        })
-        .catch((err) => {
-            next(err)
-        });
+
+        if(!user.email || !user.password){
+            return next({name : 'LOGIN_VALIDATION'})
+        }else{
+            User.findOne({where:{email:user.email}})
+            .then((data) => {
+                if(data && bcrypt.compareSync(user.password, data.password)){
+                    const access_token = jwt.sign({id: data.id, email: data.email}, process.env.JWT_SECREAT)
+                    res.status(200).json({success: true, access_token})
+                }else{
+                    throw{name: 'LOGIN_ERROR'}
+                }
+            })
+            .catch((err) => {
+                next(err)
+            });
+        }
+        
     }
 }
 

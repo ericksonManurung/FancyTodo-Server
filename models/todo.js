@@ -2,6 +2,7 @@
 const {
   Model
 } = require('sequelize');
+const backDate = require('../helpers/backDate')
 module.exports = (sequelize, DataTypes) => {
   class Todo extends Model {
     /**
@@ -16,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
   Todo.init({
     title: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate:{
         notEmpty:{
           args: true,
@@ -29,6 +31,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate:{
         notEmpty:{
           args: true,
@@ -38,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     status: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate:{
         notEmpty:{
           args: true,
@@ -47,29 +51,34 @@ module.exports = (sequelize, DataTypes) => {
     },
     due_date: {
       type: DataTypes.DATE,
+      allowNull: false,
       validate: {
         notEmpty:{
           args: true,
           msg: 'due_date tidak boleh kosong'
         },
-        isBackDate(val){
-          if(!val){
-            throw new Error('Input Tanggal hari ini')
-          }else{
-            let valDay = val.getDate()
-            let valMonth = val.getMonth() + 1
-            let valYear = val.getFullYear()
-
-            let date = new Date()
-            let day = date.getDate()
-            let month = date.getMonth() + 1
-            let year = date.getFullYear()
-
-            if(valYear !== year || valMonth !== month || valDay < day) {
-              throw new Error('Tidak bisa input tanggal kemarin')
-            }
-          }
+        isAfter: {
+          args: backDate(),
+          msg : 'Tidak bisa input tanggal atau hari kemarin'
         }
+        // isBackDate(val){
+        //   if(!val){
+        //     throw new Error('Input Tanggal hari ini')
+        //   }else{
+        //     let valDay = val.getDate()
+        //     let valMonth = val.getMonth() + 1
+        //     let valYear = val.getFullYear()
+
+        //     let date = new Date()
+        //     let day = date.getDate()
+        //     let month = date.getMonth() + 1
+        //     let year = date.getFullYear()
+
+        //     if(valYear !== year || valMonth !== month || valDay < day) {
+        //       throw new Error('Tidak bisa input tanggal kemarin')
+        //     }
+        //   }
+        // }
       }
     },
     UserId: {
@@ -77,7 +86,7 @@ module.exports = (sequelize, DataTypes) => {
       validate:{
         notEmpty:{
           args: true,
-          msg: 'Status tidak boleh kosong'
+          msg: 'UserId tidak boleh kosong'
         }
       }
     }
