@@ -10,7 +10,7 @@ class UserController{
         }
         User.create(user)
         .then((data) => {
-            res.status(201).json({success:true, message:'User berhasil register'})
+            res.status(201).json({success:true, message:'User berhasil register', data:{id:user.id, email:user.email}})
         })
         .catch((err) => {
             next(err)

@@ -61,24 +61,6 @@ module.exports = (sequelize, DataTypes) => {
           args: backDate(),
           msg : 'Tidak bisa input tanggal atau hari kemarin'
         }
-        // isBackDate(val){
-        //   if(!val){
-        //     throw new Error('Input Tanggal hari ini')
-        //   }else{
-        //     let valDay = val.getDate()
-        //     let valMonth = val.getMonth() + 1
-        //     let valYear = val.getFullYear()
-
-        //     let date = new Date()
-        //     let day = date.getDate()
-        //     let month = date.getMonth() + 1
-        //     let year = date.getFullYear()
-
-        //     if(valYear !== year || valMonth !== month || valDay < day) {
-        //       throw new Error('Tidak bisa input tanggal kemarin')
-        //     }
-        //   }
-        // }
       }
     },
     UserId: {

@@ -19,7 +19,7 @@ class TodoController{
     }
     
     static listTodo(req,res,next){
-        Todo.findAll({where:{UserId:req.userId}},{order:[['id','ASC']]})
+        Todo.findAll({where:{UserId:req.userId}},{order:[['id','DESC']]})
         .then((todo) => {
             res.status(200).json({success:true, data: todo})
         }).catch((err) => {
@@ -78,7 +78,7 @@ class TodoController{
         }).catch((err) => {
             next(err)
         });
-    }
+    } 
 }
 
 module.exports = TodoController
