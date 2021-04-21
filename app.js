@@ -4,7 +4,9 @@ const app = express()
 const port = 3000
 const router = require('./routers')
 const errorHandler = require('./middlewares/erorrHandler')
+const cors = require('cors')
 
+app.use(cors())
 // body parser
 // json
 app.use(express.json())
