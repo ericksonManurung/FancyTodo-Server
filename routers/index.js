@@ -8,6 +8,17 @@ router.get('/', (req,res)=>{
     res.send('Hello World')
 })
 
+
+router.get('/news',(req,res)=>{
+    axios.get('https://newsapi.org/v2/top-headlines?country=id&category=health&apiKey=7f2c2f07d84244c29725474208b2c9d4')
+    .then((data) => {
+        console.log(data.data.articles)
+        res.status(200).json({succes:true, data:data.data.articles})
+    }).catch((err) => {
+        res.send(err)
+    });
+})
+
 router.get('/kawalCovidIndonesia',(req,res)=>{
     axios.get('https://api.kawalcorona.com')
     .then((positif) => {
