@@ -21,23 +21,34 @@ POST/users/login
 ## Add Todo
 Menambahkan data Todo
 * URL
+```url
 /todos
+```
 * Method:
+```url
 POST
+```
 * Request Headers
+```headers
 access_token : <access token>
+```
 * URL Params
+```params
 None
+```
 * Data Params
     Required:
+    ```data
     {
         title: req.body.title,
         description: req.body.description,
         status: req.body.status,
         due_date: req.body.due_date
     }
+    ```
 * Success Response:
     Code: 201
+    ```response
     Content:
     {
         "success": true,
@@ -52,9 +63,11 @@ None
             "createdAt": "2021-04-17T10:31:57.095Z"
         }
     }
+    ```
 * Error Response:
     Code : 400
     Content:
+    ```errResponse
     {
         "success": false,
         "errorMessage": [
@@ -63,13 +76,16 @@ None
             "Validation error: Description tidak boleh kosong"
         ]
     }
+    ```
     OR
     Code: 500
     Content:
+    ```or
     {
         "success": false,
         "errorMessage": "Internal Server Error"
     }
+    ```
 
 
 
