@@ -1,21 +1,20 @@
 # FancyTodo-Server
-Fancy Todo - Server
 
-### Base URL ###
+## Base URL
 http://localhost:3000/
 
 
-### API Documentations Todos ###
+## API Documentations Todos
 
-## End Points ##
-POST/todos
-GET/todos
-GET/todos/:id
-PUT/todos/:id
-PATCH/todos/:id
-DELETE/todos/:id
-POST/users/regis
-POST/users/login
+## End Points
+* POST/todos
+* GET/todos
+* GET/todos/:id
+* PUT/todos/:id
+* PATCH/todos/:id
+* DELETE/todos/:id
+* POST/users/regis
+* POST/users/login
 
 
 ## Add Todo
@@ -66,8 +65,8 @@ None
     ```
 * Error Response:
     Code : 400
-    Content:
     ```errResponse
+    Content:
     {
         "success": false,
         "errorMessage": [
@@ -79,8 +78,8 @@ None
     ```
     OR
     Code: 500
-    Content:
     ```or
+    Content:
     {
         "success": false,
         "errorMessage": "Internal Server Error"
@@ -92,17 +91,28 @@ None
 ## List Todos
 Menampilkan Semua data Todos
 * URL
+```url
 /todos
+```
 * Method:
+```method
 GET
+```
 * Request Headers
+```headers
 access_token : <access token>
+```
 * URL Params
+```params
 None
+```
 * Data Params
+```data
 None
+```
 * Success Response:
     Code: 200
+    ```response
     Content:
     {
         "success": true,
@@ -129,30 +139,44 @@ None
             },
         ]
     }
+    ```
 * Error Response:
     Code: 500
+    ```err
     Content
     {
         "success": false,
         "errorMessage": "Internal Server Error"
     }
+    ```
 
 
 
 ## Detail Todo
 Menampilkan satu data todo sesuai paramter
 * URL
+```url
 /todos/:id
+```
 * Method:
+```method
 GET
+```
 * Request Headers
+```headers
 access_token : <access token>
+```
 * URL Params
+```params
 id
+```
 * Data Params
+```data
 None
+```
 * Success Response:
     Code: 200
+    ```res
     Content:
     {
         "success": true,
@@ -167,43 +191,59 @@ None
             "createdAt": "2021-04-17T10:31:57.095Z"
         }
     }
+    ```
     - OR
     Code: 404
+    ```or
     Content:
     {
         "success": false,
         "errorMessage": "Data tidak ditemukan"
     }
+    ```
 * Error Response:
     Code: 500
+    ```err
     Content
     {
         "success": false,
         "errorMessage": "Internal Server Error"
     }
+    ```
 
 
 
 ## Update Todo
 Mengupdate semua field pada data Todo
 * URL
+```url
 /todos/:id
+```
 * Method:
+```method
 PUT
+```
 * Request Headers
+```headers
 access_token : <access token>
+```
 * URL Params
+```params
 id
+```
 * Data Params
-    Required:
+    ```data
+    Required: 
     {
         title: req.body.title,
         description: req.body.description,
         status: req.body.status,
         due_date: req.body.due_date
     }
+    ```
 * Success Response:
     Code: 200
+    ```res
     Content:
     {
         "success": true,
@@ -217,15 +257,19 @@ id
             "updatedAt": "2021-04-13T15:31:37.907Z"
         }
     }
+    ```
     - OR
     Code: 404
+    ```err
     Content:
     {
         "success": false,
         "errorMessage": "Data tidak ditemukan"
     }
+    ```
 * Error Response:
     Code : 400
+    ```err
     Content:
     {
         "success": false,
@@ -234,13 +278,16 @@ id
             "Validation error: Status tidak boleh kosong"
         ]
     }
+    ```
     - OR
+    ```or
     Code: 500
     Content:
     {
         "success": false,
         "errorMessage": "Internal Server Error"
     }
+    ```
 
 
 
