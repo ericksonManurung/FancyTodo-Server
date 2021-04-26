@@ -9,21 +9,21 @@ router.get('/', (req,res)=>{
 })
 
 
-router.get('/news',(req,res)=>{
+router.get('/news',(req,res,next)=>{
     axios.get(`https://newsapi.org/v2/top-headlines?country=id&category=health&apiKey=${process.env.API_KEY}`)
     .then((data) => {
         res.status(200).json({succes:true, data:data.data.articles})
     }).catch((err) => {
-        res.send(err)
+        next(err)
     });
 })
 
-router.get('/kawalCovidIndonesia',(req,res)=>{
+router.get('/kawalCovidIndonesia',(req,res,next)=>{
     axios.get('https://api.kawalcorona.com/indonesia')
     .then((data) => {
         res.send({succes:true, data:data.data})
     }).catch((err) => {
-        res.send(err)
+        next(err)
     });
 })
 

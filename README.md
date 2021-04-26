@@ -21,7 +21,7 @@ http://localhost:3000/
 * Bootstrap
 * sweetalert
 * toastify
-* fontawesom
+* fontawesome
 
 ## End Points
 * POST/todos
@@ -32,6 +32,7 @@ http://localhost:3000/
 * DELETE/todos/:id
 * POST/users/regis
 * POST/users/login
+* POST/googleLogin
 
 
 ## Add Todo
