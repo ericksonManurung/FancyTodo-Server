@@ -10,7 +10,7 @@ router.get('/', (req,res)=>{
 
 
 router.get('/news',(req,res)=>{
-    axios.get('https://newsapi.org/v2/top-headlines?country=id&category=health&apiKey=7f2c2f07d84244c29725474208b2c9d4')
+    axios.get(`https://newsapi.org/v2/top-headlines?country=id&category=health&apiKey=${process.env.API_KEY}`)
     .then((data) => {
         res.status(200).json({succes:true, data:data.data.articles})
     }).catch((err) => {
